@@ -1,0 +1,899 @@
+[gd_scene load_steps=170 format=3 uid="uid://ch1xioneov15x"]
+
+[ext_resource type="Script" path="res://dev/fighters/fighter_core.gd" id="1_itygn"]
+[ext_resource type="Script" path="res://dev/fighters/state_machine.gd" id="2_v5jq2"]
+[ext_resource type="Script" path="res://dev/fighters/controllers/player_controller.gd" id="2_x42jj"]
+[ext_resource type="Script" path="res://dev/fighters/motion_states/motion_idle.gd" id="3_720g0"]
+[ext_resource type="Script" path="res://dev/fighters/action_states/action_idle.gd" id="3_y58j1"]
+[ext_resource type="Script" path="res://dev/fighters/motion_states/motion_move.gd" id="4_1keff"]
+[ext_resource type="Script" path="res://dev/fighters/motion_states/motion_air.gd" id="4_6y5eu"]
+[ext_resource type="Script" path="res://dev/fighters/action_states/action_punch.gd" id="4_mdhr2"]
+[ext_resource type="Script" path="res://dev/fighters/action_states/action_kick.gd" id="5_indd8"]
+[ext_resource type="Script" path="res://dev/fighters/action_states/action_block.gd" id="6_xpnpd"]
+[ext_resource type="Script" path="res://dev/fighters/action_states/action_special.gd" id="7_eamq7"]
+[ext_resource type="Script" path="res://game/debug.gd" id="8_5ldwd"]
+[ext_resource type="Script" path="res://dev/fighters/motion_states/motion_crouch.gd" id="11_83jwx"]
+[ext_resource type="Script" path="res://dev/fighters/debug_button.gd" id="14_a46ty"]
+[ext_resource type="Script" path="res://dev/fighters/attack_hitbox.gd" id="14_hvemv"]
+[ext_resource type="Texture2D" uid="uid://b5nsy5od8xeh" path="res://dev/input_icons/controller/xbox_dpad_none.png" id="14_jyslj"]
+[ext_resource type="Texture2D" uid="uid://doergn0g1ywvs" path="res://animations/redd/block/0001.png" id="14_prs0f"]
+[ext_resource type="Script" path="res://dev/fighters/debug_dpad.gd" id="14_qcktl"]
+[ext_resource type="Texture2D" uid="uid://cetuakqiy2sv4" path="res://animations/redd/idle/0001.png" id="14_vdx2q"]
+[ext_resource type="Texture2D" uid="uid://c1lg3wwmvlduw" path="res://dev/input_icons/controller/xbox_button_color_a_outline.png" id="14_yqcpy"]
+[ext_resource type="Texture2D" uid="uid://hytbuy6yg1d2" path="res://dev/input_icons/controller/xbox_dpad_up_outline.png" id="15_0x6ua"]
+[ext_resource type="Texture2D" uid="uid://ntbg0ld8xahe" path="res://animations/redd/idle/0003.png" id="15_1um7s"]
+[ext_resource type="Script" path="res://dev/fighters/attack_hurtbox.gd" id="15_74f0p"]
+[ext_resource type="Texture2D" uid="uid://n7b567dvh5tn" path="res://dev/input_icons/controller/xbox_button_color_b_outline.png" id="15_lxl22"]
+[ext_resource type="Texture2D" uid="uid://cve3abt1x6u82" path="res://dev/input_icons/controller/xbox_button_color_x.png" id="15_o4mf2"]
+[ext_resource type="Texture2D" uid="uid://chy6bghfbowph" path="res://animations/redd/block/0003.png" id="15_vc55u"]
+[ext_resource type="Texture2D" uid="uid://17gn04f5ub" path="res://animations/redd/idle/0005.png" id="16_n6ak4"]
+[ext_resource type="Texture2D" uid="uid://dsoede1cpw6vc" path="res://dev/input_icons/controller/xbox_button_color_x_outline.png" id="16_prleg"]
+[ext_resource type="Texture2D" uid="uid://d0f80r8a7f1m3" path="res://animations/redd/block/0005.png" id="16_t6bty"]
+[ext_resource type="Texture2D" uid="uid://c4x6vho4slao1" path="res://dev/input_icons/controller/xbox_dpad_down_outline.png" id="16_yskgc"]
+[ext_resource type="Texture2D" uid="uid://bpjuviklld77i" path="res://dev/input_icons/controller/xbox_button_color_y_outline.png" id="17_3q07m"]
+[ext_resource type="Texture2D" uid="uid://bh51rxhx2u2k0" path="res://dev/input_icons/controller/xbox_dpad_left_outline.png" id="17_bb07r"]
+[ext_resource type="Texture2D" uid="uid://b86p4g0q7jexp" path="res://animations/redd/block/0007.png" id="17_g3x3e"]
+[ext_resource type="Texture2D" uid="uid://f60sywfybd21" path="res://dev/input_icons/controller/xbox_button_color_y.png" id="17_qr6la"]
+[ext_resource type="Texture2D" uid="uid://c3aq4vigt4kyo" path="res://animations/redd/idle/0007.png" id="17_wxh13"]
+[ext_resource type="Texture2D" uid="uid://bn4m1bp436tam" path="res://dev/input_icons/controller/xbox_dpad_right_outline.png" id="18_k5m3x"]
+[ext_resource type="Texture2D" uid="uid://8wlf0vlsyjen" path="res://animations/redd/idle/0009.png" id="18_lc1yw"]
+[ext_resource type="Texture2D" uid="uid://clvmtrd8uvrin" path="res://animations/redd/block/0009.png" id="18_vjji0"]
+[ext_resource type="Texture2D" uid="uid://ddbwyp2to8gao" path="res://dev/input_icons/controller/xbox_button_color_a.png" id="19_07t0r"]
+[ext_resource type="Texture2D" uid="uid://bstblflo72gdu" path="res://animations/redd/idle/0011.png" id="19_petew"]
+[ext_resource type="Texture2D" uid="uid://db0la44l3rkis" path="res://animations/redd/idle/0013.png" id="20_61rs2"]
+[ext_resource type="Texture2D" uid="uid://belsb80qca774" path="res://animations/redd/idle/0015.png" id="21_uoqsh"]
+[ext_resource type="Texture2D" uid="uid://c6660crabxba4" path="res://dev/input_icons/controller/xbox_button_color_b.png" id="21_xmcc7"]
+[ext_resource type="Texture2D" uid="uid://c2ied57hqc262" path="res://animations/redd/idle/0017.png" id="22_2glks"]
+[ext_resource type="Texture2D" uid="uid://blx8sh4tgtva" path="res://animations/redd/idle/0019.png" id="23_4ymf8"]
+[ext_resource type="Texture2D" uid="uid://d3750qqxkxnk8" path="res://animations/redd/idle/0021.png" id="24_nlett"]
+[ext_resource type="Texture2D" uid="uid://du00jdmy8bywh" path="res://animations/redd/idle/0023.png" id="25_hfeib"]
+[ext_resource type="Texture2D" uid="uid://dpaqx1emq5auq" path="res://animations/redd/idle/0025.png" id="26_cxiij"]
+[ext_resource type="Texture2D" uid="uid://7vx68dbk0wd1" path="res://animations/redd/idle/0027.png" id="27_gmd4u"]
+[ext_resource type="Texture2D" uid="uid://csnyy80vrtrbh" path="res://animations/redd/idle/0029.png" id="28_rok7f"]
+[ext_resource type="Texture2D" uid="uid://b4meya632wf66" path="res://animations/redd/idle/0031.png" id="29_71qjq"]
+[ext_resource type="Texture2D" uid="uid://7xqmvxk5lj1a" path="res://animations/redd/idle/0033.png" id="30_clcpu"]
+[ext_resource type="Texture2D" uid="uid://dtake58fayijn" path="res://animations/redd/idle/0035.png" id="31_yhkex"]
+[ext_resource type="Texture2D" uid="uid://dsuedjjmuoeak" path="res://animations/redd/idle/0037.png" id="32_v8pym"]
+[ext_resource type="Texture2D" uid="uid://didejhgpx1cge" path="res://animations/redd/idle/0039.png" id="33_m5qck"]
+[ext_resource type="Texture2D" uid="uid://da23547l38m16" path="res://animations/redd/idle/0041.png" id="34_nieff"]
+[ext_resource type="Texture2D" uid="uid://ivcyqvhrmepx" path="res://animations/redd/idle/0043.png" id="35_wtjdd"]
+[ext_resource type="Texture2D" uid="uid://b0wge1kactwr" path="res://animations/redd/idle/0045.png" id="36_w7klb"]
+[ext_resource type="Texture2D" uid="uid://cdw357630bd2m" path="res://animations/redd/idle/0047.png" id="37_kdval"]
+[ext_resource type="Texture2D" uid="uid://duhbhsfppu2qw" path="res://animations/redd/idle/0049.png" id="38_fa8jo"]
+[ext_resource type="Texture2D" uid="uid://c1o24m46hqvx8" path="res://animations/redd/idle/0051.png" id="39_8553n"]
+[ext_resource type="Texture2D" uid="uid://blwaihc1r46yi" path="res://animations/redd/idle/0053.png" id="40_ewpoq"]
+[ext_resource type="Texture2D" uid="uid://b3x71225y2qdt" path="res://animations/redd/idle/0055.png" id="41_ilre7"]
+[ext_resource type="Texture2D" uid="uid://caasg1anojc8w" path="res://animations/redd/idle/0057.png" id="42_dqiia"]
+[ext_resource type="Texture2D" uid="uid://bok2llpxgdeqq" path="res://animations/redd/idle/0059.png" id="43_ac0kg"]
+[ext_resource type="Texture2D" uid="uid://vjkiv1l76wua" path="res://animations/redd/idle/0061.png" id="44_2uk81"]
+[ext_resource type="Texture2D" uid="uid://bo1qwsrj1wf6n" path="res://animations/redd/idle/0063.png" id="45_lh4nk"]
+[ext_resource type="Texture2D" uid="uid://5hacbmv3p8or" path="res://animations/redd/idle/0065.png" id="46_upm3k"]
+[ext_resource type="Texture2D" uid="uid://dtg4tblqp823q" path="res://animations/redd/idle/0067.png" id="47_q3ooe"]
+[ext_resource type="Texture2D" uid="uid://ctkgpvyo5kyrm" path="res://animations/redd/idle/0069.png" id="48_il0sg"]
+[ext_resource type="Texture2D" uid="uid://k57nl7x5u3oh" path="res://animations/redd/idle/0071.png" id="49_as0ao"]
+[ext_resource type="Texture2D" uid="uid://bs357odfv0q6k" path="res://animations/redd/idle/0073.png" id="50_gn0pw"]
+[ext_resource type="Texture2D" uid="uid://cs75nau4tmfim" path="res://animations/redd/idle/0075.png" id="51_1byhi"]
+[ext_resource type="Texture2D" uid="uid://cpxdfnj5ewemv" path="res://animations/redd/idle/0077.png" id="52_f8sbc"]
+[ext_resource type="Texture2D" uid="uid://0oohc3axwu6d" path="res://animations/redd/idle/0079.png" id="53_0jij7"]
+[ext_resource type="Texture2D" uid="uid://cwm62j8jaux7r" path="res://animations/redd/idle/0081.png" id="54_2jwpe"]
+[ext_resource type="Texture2D" uid="uid://d1f6skbvdvvs6" path="res://animations/redd/idle/0083.png" id="55_h3jxg"]
+[ext_resource type="Texture2D" uid="uid://dfamlnkesjacp" path="res://animations/redd/idle/0085.png" id="56_65sii"]
+[ext_resource type="Texture2D" uid="uid://bxvam6466wsbj" path="res://animations/redd/idle/0087.png" id="57_xop0f"]
+[ext_resource type="Texture2D" uid="uid://bdhct74tl8vae" path="res://animations/redd/idle/0089.png" id="58_4gj2m"]
+[ext_resource type="Texture2D" uid="uid://gs501yn4ulm6" path="res://animations/redd/move/0001.png" id="59_yxfmd"]
+[ext_resource type="Texture2D" uid="uid://62vq8xlk5d8m" path="res://animations/redd/move/0003.png" id="60_poytk"]
+[ext_resource type="Texture2D" uid="uid://c25mc8qltnnmu" path="res://animations/redd/move/0005.png" id="61_cucct"]
+[ext_resource type="Texture2D" uid="uid://b7nm1oqruk7v3" path="res://animations/redd/move/0007.png" id="62_dc3g7"]
+[ext_resource type="Texture2D" uid="uid://bn8bow4obiumq" path="res://animations/redd/move/0009.png" id="63_lrtjl"]
+[ext_resource type="Texture2D" uid="uid://c0unrxpy4wpep" path="res://animations/redd/idle_fight/0001.png" id="64_kfg8g"]
+[ext_resource type="Texture2D" uid="uid://d3d65evcdepxb" path="res://animations/redd/move/0011.png" id="64_r18oy"]
+[ext_resource type="Texture2D" uid="uid://dvmsnowwu53rq" path="res://animations/redd/idle_fight/0003.png" id="65_6g1if"]
+[ext_resource type="Texture2D" uid="uid://qtao3s53y487" path="res://animations/redd/move/0013.png" id="65_n0lv0"]
+[ext_resource type="Texture2D" uid="uid://b1c8ctfcnhx1w" path="res://animations/redd/move/0015.png" id="66_etgx6"]
+[ext_resource type="Texture2D" uid="uid://b3cjvrjrwtx2t" path="res://animations/redd/idle_fight/0005.png" id="66_fvkb3"]
+[ext_resource type="Texture2D" uid="uid://b28iuv7kfkn31" path="res://animations/redd/move/0017.png" id="67_dofcr"]
+[ext_resource type="Texture2D" uid="uid://xt3uxagskrc8" path="res://animations/redd/idle_fight/0007.png" id="67_rlsu1"]
+[ext_resource type="Texture2D" uid="uid://c8nsot1uwcrpy" path="res://animations/redd/idle_fight/0009.png" id="68_8j4tp"]
+[ext_resource type="Texture2D" uid="uid://4itsildy0fjk" path="res://animations/redd/move/0019.png" id="68_lfha6"]
+[ext_resource type="Texture2D" uid="uid://b8pxq8rsjmboi" path="res://animations/redd/idle_fight/0011.png" id="69_ufsl7"]
+[ext_resource type="Texture2D" uid="uid://b4my8y7mqlrgm" path="res://animations/redd/move/0021.png" id="69_xc55k"]
+[ext_resource type="Texture2D" uid="uid://cyd30ebp1ot5b" path="res://animations/redd/idle_fight/0013.png" id="70_g8t0u"]
+[ext_resource type="Texture2D" uid="uid://cs52wa61dsv1r" path="res://animations/redd/move/0023.png" id="70_in5mj"]
+[ext_resource type="Texture2D" uid="uid://b7o2u256d7pmb" path="res://animations/redd/idle_fight/0015.png" id="71_14xoh"]
+[ext_resource type="Texture2D" uid="uid://c6qpcncon2866" path="res://animations/redd/move/0025.png" id="71_vnsru"]
+[ext_resource type="Texture2D" uid="uid://cbnijbtocgb53" path="res://animations/redd/move/0027.png" id="72_6ifug"]
+[ext_resource type="Texture2D" uid="uid://b1f0pwyoypuh6" path="res://animations/redd/idle_fight/0017.png" id="72_jc1b4"]
+[ext_resource type="Texture2D" uid="uid://6sho7nsbsw7j" path="res://animations/redd/move/0029.png" id="73_wr8wb"]
+[ext_resource type="Texture2D" uid="uid://bgxcfmkbr83gu" path="res://animations/redd/idle_fight/0019.png" id="73_xm2h1"]
+[ext_resource type="Texture2D" uid="uid://c8fldp8180vi0" path="res://animations/redd/move/0031.png" id="74_itl1o"]
+[ext_resource type="Texture2D" uid="uid://ca7al5284ggnf" path="res://animations/redd/idle_fight/0021.png" id="74_q8cpl"]
+[ext_resource type="Texture2D" uid="uid://cutf0248rcd7s" path="res://animations/redd/move/0033.png" id="75_hp7uo"]
+[ext_resource type="Texture2D" uid="uid://740d8ty5adhl" path="res://animations/redd/idle_fight/0023.png" id="75_ma3ni"]
+[ext_resource type="Texture2D" uid="uid://dfpve3q17dcln" path="res://animations/redd/idle_fight/0025.png" id="76_c3ts7"]
+[ext_resource type="Texture2D" uid="uid://mro1yi15vpx0" path="res://animations/redd/move/0035.png" id="76_kgy6t"]
+[ext_resource type="Texture2D" uid="uid://dm214h8j35pgi" path="res://animations/redd/move/0037.png" id="77_7wtau"]
+[ext_resource type="Texture2D" uid="uid://dvwqkjjye5xlp" path="res://animations/redd/idle_fight/0027.png" id="77_8asy4"]
+[ext_resource type="Texture2D" uid="uid://2hibrtnxfbxd" path="res://animations/redd/idle_fight/0029.png" id="78_8j03g"]
+[ext_resource type="Texture2D" uid="uid://bk2x4yfnv0god" path="res://animations/redd/move/0039.png" id="78_eggkj"]
+[ext_resource type="Texture2D" uid="uid://bc8lynk2itq8g" path="res://animations/redd/move/0041.png" id="79_3oc2n"]
+[ext_resource type="Texture2D" uid="uid://2fnjyeogg22w" path="res://animations/redd/idle_fight/0031.png" id="79_t5jj7"]
+[ext_resource type="Texture2D" uid="uid://dpt3cui66hvxb" path="res://animations/redd/move/0043.png" id="80_2lxog"]
+[ext_resource type="Texture2D" uid="uid://dhiu1qqt68tkm" path="res://animations/redd/idle_fight/0033.png" id="80_q0ndw"]
+[ext_resource type="Texture2D" uid="uid://dpbw0ac4ik1ej" path="res://animations/redd/move/0045.png" id="81_716v5"]
+[ext_resource type="Texture2D" uid="uid://cr5gnkpjhcgnl" path="res://animations/redd/idle_fight/0035.png" id="81_nh72l"]
+[ext_resource type="Texture2D" uid="uid://b16nxua1swsj1" path="res://animations/redd/idle_fight/0037.png" id="82_5v0s4"]
+[ext_resource type="Texture2D" uid="uid://bby0myhumvwek" path="res://animations/redd/move/0047.png" id="82_52nyr"]
+[ext_resource type="Texture2D" uid="uid://i004i7us80e3" path="res://animations/redd/idle_fight/0039.png" id="83_s3306"]
+[ext_resource type="Texture2D" uid="uid://dgbvjbgeyromu" path="res://animations/redd/move/0049.png" id="83_tpbjp"]
+[ext_resource type="Texture2D" uid="uid://c1b5evfdfndmx" path="res://animations/redd/idle_fight/0041.png" id="84_2werb"]
+[ext_resource type="Texture2D" uid="uid://cey8gq80sdwu" path="res://animations/redd/move/0051.png" id="84_x4bsr"]
+[ext_resource type="Texture2D" uid="uid://dkb4n5qp1u0w6" path="res://animations/redd/move/0053.png" id="85_8mn88"]
+[ext_resource type="Texture2D" uid="uid://utitm8nowf2u" path="res://animations/redd/idle_fight/0043.png" id="85_ii4x3"]
+[ext_resource type="Texture2D" uid="uid://ckfijowsmith3" path="res://animations/redd/move/0055.png" id="86_anysk"]
+[ext_resource type="Texture2D" uid="uid://b4gnq8huj67k" path="res://animations/redd/idle_fight/0045.png" id="86_ifyjh"]
+[ext_resource type="Texture2D" uid="uid://ccqd3nldbvh87" path="res://animations/redd/idle_fight/0047.png" id="87_8dvkc"]
+[ext_resource type="Texture2D" uid="uid://cmsqheok1051u" path="res://animations/redd/move/0057.png" id="87_au78b"]
+[ext_resource type="Texture2D" uid="uid://dhqhuu503a1oc" path="res://animations/redd/move/0059.png" id="88_p3stq"]
+[ext_resource type="Texture2D" uid="uid://dss7ospy33clp" path="res://animations/redd/idle_fight/0049.png" id="88_sdfnj"]
+[ext_resource type="Texture2D" uid="uid://cb7ibd5fptscj" path="res://animations/redd/idle_fight/0051.png" id="89_pcn1q"]
+[ext_resource type="Texture2D" uid="uid://fmn2oe5053i" path="res://animations/redd/idle_fight/0053.png" id="90_vqsvo"]
+[ext_resource type="Texture2D" uid="uid://bx7qbdcl5s6j5" path="res://animations/redd/idle_fight/0055.png" id="91_0wtlm"]
+[ext_resource type="Texture2D" uid="uid://x6jn4h3oi7s1" path="res://animations/redd/idle_fight/0057.png" id="92_c3af0"]
+[ext_resource type="Texture2D" uid="uid://bsq8thgqi8jfi" path="res://animations/redd/idle_fight/0059.png" id="93_q4qxu"]
+[ext_resource type="Texture2D" uid="uid://bkwgjbrsd73g5" path="res://animations/redd/kick/0001.png" id="94_7xvup"]
+[ext_resource type="Texture2D" uid="uid://dtlb17qx0tn5k" path="res://animations/redd/punch/0001.png" id="94_bgxid"]
+[ext_resource type="Texture2D" uid="uid://cyyjxppe8k5mc" path="res://animations/redd/jump_up/0001.png" id="94_m7832"]
+[ext_resource type="Texture2D" uid="uid://b5bo0qp0vpupe" path="res://animations/redd/punch/0003.png" id="95_e3ndo"]
+[ext_resource type="Texture2D" uid="uid://beulk51uu2ajf" path="res://animations/redd/jump_up/0003.png" id="95_pe805"]
+[ext_resource type="Texture2D" uid="uid://dn51ku61wla37" path="res://animations/redd/kick/0003.png" id="95_qvtvq"]
+[ext_resource type="Texture2D" uid="uid://csws2nn10ck4g" path="res://animations/redd/kick/0005.png" id="96_k5xgt"]
+[ext_resource type="Texture2D" uid="uid://bdsti2x7jeb2a" path="res://animations/redd/jump_up/0005.png" id="96_mdtgl"]
+[ext_resource type="Texture2D" uid="uid://cloile2y0ndia" path="res://animations/redd/punch/0005.png" id="96_u3112"]
+[ext_resource type="Texture2D" uid="uid://cj2ttcgd3fqa" path="res://animations/redd/punch/0007.png" id="97_3fjlp"]
+[ext_resource type="Texture2D" uid="uid://e30n612vaulf" path="res://animations/redd/jump_up/0007.png" id="97_hwq4m"]
+[ext_resource type="Texture2D" uid="uid://cgisgnphl4v6j" path="res://animations/redd/kick/0007.png" id="97_iycjw"]
+[ext_resource type="Texture2D" uid="uid://12cdouvb1i4m" path="res://animations/redd/punch/0009.png" id="98_37gl5"]
+[ext_resource type="Texture2D" uid="uid://hbvexgffkbxs" path="res://animations/redd/jump_up/0009.png" id="98_m8j1o"]
+[ext_resource type="Texture2D" uid="uid://cyc2x4frelpo4" path="res://animations/redd/kick/0009.png" id="98_mxol3"]
+[ext_resource type="Texture2D" uid="uid://cpc57cy1b6vgg" path="res://animations/redd/jump_land/0001.png" id="104_qfjqv"]
+[ext_resource type="Texture2D" uid="uid://bqwque1bykvjk" path="res://animations/redd/jump_land/0003.png" id="105_hh7k1"]
+[ext_resource type="Texture2D" uid="uid://origpppkjjkn" path="res://animations/redd/jump_land/0005.png" id="106_7fe2m"]
+[ext_resource type="Texture2D" uid="uid://dlrql6obxvpwb" path="res://animations/redd/jump_land/0007.png" id="107_s1lx8"]
+[ext_resource type="Texture2D" uid="uid://b7xs2bk84nila" path="res://animations/redd/jump_land/0009.png" id="108_ouut4"]
+[ext_resource type="Texture2D" uid="uid://dybtfwu2kr6rh" path="res://animations/redd/jump_land/0011.png" id="109_1kbfx"]
+[ext_resource type="Texture2D" uid="uid://dunlc7mv0sx1x" path="res://animations/redd/jump_land/0013.png" id="110_ib4k0"]
+[ext_resource type="Texture2D" uid="uid://mywpeavqd2vc" path="res://animations/redd/jump_land/0015.png" id="111_pt4tm"]
+[ext_resource type="Texture2D" uid="uid://dx52c534c4ic6" path="res://animations/redd/jump_land/0017.png" id="112_j8dj4"]
+[ext_resource type="Texture2D" uid="uid://djsgtrvnovv13" path="res://animations/redd/jump_land/0019.png" id="113_cxx42"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xp83v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_prs0f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_vc55u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_t6bty")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_g3x3e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_vjji0")
+}],
+"loop": false,
+"name": &"BLOCK",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_vdx2q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_1um7s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_n6ak4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_wxh13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_lc1yw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_petew")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_61rs2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_uoqsh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_2glks")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_4ymf8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_nlett")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_hfeib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_cxiij")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_gmd4u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_rok7f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_71qjq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_clcpu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_yhkex")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_v8pym")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_m5qck")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_nieff")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_wtjdd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_w7klb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_kdval")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_fa8jo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_8553n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_ewpoq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_ilre7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_dqiia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_ac0kg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_2uk81")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_lh4nk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_upm3k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_q3ooe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_il0sg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_as0ao")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_gn0pw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_1byhi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_f8sbc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_0jij7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_2jwpe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_h3jxg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_65sii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_xop0f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_4gj2m")
+}],
+"loop": true,
+"name": &"IDLE",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("64_kfg8g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_6g1if")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_fvkb3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_rlsu1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_8j4tp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_ufsl7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_g8t0u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_14xoh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_jc1b4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_xm2h1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_q8cpl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_ma3ni")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_c3ts7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_8asy4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_8j03g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_t5jj7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_q0ndw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("81_nh72l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("82_5v0s4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("83_s3306")
+}, {
+"duration": 1.0,
+"texture": ExtResource("84_2werb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("85_ii4x3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("86_ifyjh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("87_8dvkc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("88_sdfnj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("89_pcn1q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("90_vqsvo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("91_0wtlm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("92_c3af0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("93_q4qxu")
+}],
+"loop": true,
+"name": &"IDLE_FIGHT",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("94_m7832")
+}, {
+"duration": 1.0,
+"texture": ExtResource("95_pe805")
+}, {
+"duration": 1.0,
+"texture": ExtResource("96_mdtgl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("97_hwq4m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("98_m8j1o")
+}],
+"loop": false,
+"name": &"JUMP",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("94_7xvup")
+}, {
+"duration": 1.0,
+"texture": ExtResource("95_qvtvq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("96_k5xgt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("97_iycjw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("98_mxol3")
+}],
+"loop": false,
+"name": &"KICK",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("104_qfjqv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("105_hh7k1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("106_7fe2m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("107_s1lx8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("108_ouut4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("109_1kbfx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("110_ib4k0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("111_pt4tm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("112_j8dj4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("113_cxx42")
+}],
+"loop": false,
+"name": &"LAND",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("59_yxfmd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_poytk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_cucct")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_dc3g7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_lrtjl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_r18oy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_n0lv0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_etgx6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_dofcr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_lfha6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_xc55k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_in5mj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_vnsru")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_6ifug")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_wr8wb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_itl1o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_hp7uo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_kgy6t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_7wtau")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_eggkj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_3oc2n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_2lxog")
+}, {
+"duration": 1.0,
+"texture": ExtResource("81_716v5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("82_52nyr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("83_tpbjp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("84_x4bsr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("85_8mn88")
+}, {
+"duration": 1.0,
+"texture": ExtResource("86_anysk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("87_au78b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("88_p3stq")
+}],
+"loop": true,
+"name": &"MOVE",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("94_bgxid")
+}, {
+"duration": 1.0,
+"texture": ExtResource("95_e3ndo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("96_u3112")
+}, {
+"duration": 1.0,
+"texture": ExtResource("97_3fjlp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("98_37gl5")
+}],
+"loop": false,
+"name": &"PUNCH",
+"speed": 30.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2tu2y"]
+size = Vector2(58, 58)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ouodt"]
+radius = 57.0
+height = 218.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5tnxn"]
+radius = 51.0
+height = 214.0
+
+[node name="Fighter" type="CharacterBody2D" node_paths=PackedStringArray("motion_state", "action_state", "attack_area")]
+script = ExtResource("1_itygn")
+jump_impulse = 1500.0
+jump_repeat = 0.5
+motion_state = NodePath("MotionState")
+action_state = NodePath("ActionState")
+attack_area = NodePath("Attack")
+
+[node name="Controller" type="Node" parent="."]
+script = ExtResource("2_x42jj")
+
+[node name="MotionState" type="Node" parent="." node_paths=PackedStringArray("controller")]
+script = ExtResource("2_v5jq2")
+initial_state = NodePath("IDLE")
+controller = NodePath("../Controller")
+
+[node name="IDLE" type="Node" parent="MotionState"]
+script = ExtResource("3_720g0")
+
+[node name="AIR" type="Node" parent="MotionState"]
+script = ExtResource("4_6y5eu")
+
+[node name="MOVE" type="Node" parent="MotionState"]
+script = ExtResource("4_1keff")
+
+[node name="CROUCH" type="Node" parent="MotionState"]
+script = ExtResource("11_83jwx")
+
+[node name="ActionState" type="Node" parent="." node_paths=PackedStringArray("controller")]
+script = ExtResource("2_v5jq2")
+initial_state = NodePath("IDLE")
+controller = NodePath("../Controller")
+
+[node name="IDLE" type="Node" parent="ActionState"]
+script = ExtResource("3_y58j1")
+
+[node name="PUNCH" type="Node" parent="ActionState"]
+script = ExtResource("4_mdhr2")
+
+[node name="KICK" type="Node" parent="ActionState"]
+script = ExtResource("5_indd8")
+
+[node name="BLOCK" type="Node" parent="ActionState"]
+script = ExtResource("6_xpnpd")
+
+[node name="SPECIAL" type="Node" parent="ActionState"]
+script = ExtResource("7_eamq7")
+
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="REDD" type="AnimatedSprite2D" parent="Sprite"]
+position = Vector2(0, -135)
+scale = Vector2(0.35, 0.35)
+sprite_frames = SubResource("SpriteFrames_xp83v")
+animation = &"PUNCH"
+
+[node name="Attack" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("14_hvemv")
+
+[node name="KICK" type="CollisionShape2D" parent="Attack"]
+position = Vector2(123, -111)
+shape = SubResource("RectangleShape2D_2tu2y")
+disabled = true
+debug_color = Color(0.968627, 0, 0.47451, 0.419608)
+
+[node name="PUNCH" type="CollisionShape2D" parent="Attack"]
+position = Vector2(160, -184)
+shape = SubResource("RectangleShape2D_2tu2y")
+disabled = true
+debug_color = Color(0.968627, 0, 0.47451, 0.419608)
+
+[node name="Hurt" type="Area2D" parent="."]
+script = ExtResource("15_74f0p")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="Hurt"]
+position = Vector2(0, -106)
+shape = SubResource("CapsuleShape2D_ouodt")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -106)
+shape = SubResource("CapsuleShape2D_5tnxn")
+
+[node name="DebugUI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" type="Control" parent="DebugUI" node_paths=PackedStringArray("player", "motion_state", "action_state", "x_button", "y_button", "a_button", "b_button", "d_pad")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_5ldwd")
+player = NodePath("../..")
+motion_state = NodePath("MotionState")
+action_state = NodePath("ActionState")
+x_button = NodePath("DebugDisplay/DebugButtons/HBoxContainer/XButton")
+y_button = NodePath("DebugDisplay/DebugButtons/CenterContainer/YButton")
+a_button = NodePath("DebugDisplay/DebugButtons/CenterContainer2/AButton")
+b_button = NodePath("DebugDisplay/DebugButtons/HBoxContainer/BButton")
+d_pad = NodePath("DebugDisplay/DebugDPad")
+
+[node name="MotionState" type="Label" parent="DebugUI/Control"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 8.0
+offset_right = 56.0
+offset_bottom = 31.0
+text = "STATE"
+
+[node name="ActionState" type="Label" parent="DebugUI/Control"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 37.0
+offset_right = 56.0
+offset_bottom = 60.0
+text = "STATE"
+
+[node name="DebugDisplay" type="HBoxContainer" parent="DebugUI/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -196.0
+offset_top = 16.0
+offset_right = -18.0
+offset_bottom = 72.0
+grow_horizontal = 0
+theme_override_constants/separation = 75
+
+[node name="DebugDPad" type="Control" parent="DebugUI/Control/DebugDisplay"]
+layout_mode = 2
+script = ExtResource("14_qcktl")
+
+[node name="inactive" type="TextureRect" parent="DebugUI/Control/DebugDisplay/DebugDPad"]
+texture_filter = 1
+layout_mode = 0
+texture = ExtResource("14_jyslj")
+
+[node name="up" type="TextureRect" parent="DebugUI/Control/DebugDisplay/DebugDPad"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("15_0x6ua")
+
+[node name="down" type="TextureRect" parent="DebugUI/Control/DebugDisplay/DebugDPad"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("16_yskgc")
+
+[node name="left" type="TextureRect" parent="DebugUI/Control/DebugDisplay/DebugDPad"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("17_bb07r")
+
+[node name="right" type="TextureRect" parent="DebugUI/Control/DebugDisplay/DebugDPad"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("18_k5m3x")
+
+[node name="DebugButtons" type="VBoxContainer" parent="DebugUI/Control/DebugDisplay"]
+layout_mode = 2
+theme_override_constants/separation = 28
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="DebugUI/Control/DebugDisplay/DebugButtons"]
+layout_mode = 2
+
+[node name="YButton" type="Control" parent="DebugUI/Control/DebugDisplay/DebugButtons/CenterContainer"]
+layout_mode = 2
+script = ExtResource("14_a46ty")
+
+[node name="inactive" type="TextureRect" parent="DebugUI/Control/DebugDisplay/DebugButtons/CenterContainer/YButton"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("17_3q07m")
+expand_mode = 1
+
+[node name="active" type="TextureRect" parent="DebugUI/Control/DebugDisplay/DebugButtons/CenterContainer/YButton"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("17_qr6la")
+expand_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DebugUI/Control/DebugDisplay/DebugButtons"]
+layout_mode = 2
+theme_override_constants/separation = 56
+alignment = 1
+
+[node name="XButton" type="Control" parent="DebugUI/Control/DebugDisplay/DebugButtons/HBoxContainer"]
+layout_mode = 2
+script = ExtResource("14_a46ty")
+
+[node name="inactive" type="TextureRect" parent="DebugUI/Control/DebugDisplay/DebugButtons/HBoxContainer/XButton"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("16_prleg")
+expand_mode = 1
+
+[node name="active" type="TextureRect" parent="DebugUI/Control/DebugDisplay/DebugButtons/HBoxContainer/XButton"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("15_o4mf2")
+expand_mode = 1
+
+[node name="BButton" type="Control" parent="DebugUI/Control/DebugDisplay/DebugButtons/HBoxContainer"]
+layout_mode = 2
+script = ExtResource("14_a46ty")
+
+[node name="inactive" type="TextureRect" parent="DebugUI/Control/DebugDisplay/DebugButtons/HBoxContainer/BButton"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("15_lxl22")
+expand_mode = 1
+
+[node name="active" type="TextureRect" parent="DebugUI/Control/DebugDisplay/DebugButtons/HBoxContainer/BButton"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("21_xmcc7")
+expand_mode = 1
+
+[node name="CenterContainer2" type="CenterContainer" parent="DebugUI/Control/DebugDisplay/DebugButtons"]
+layout_mode = 2
+
+[node name="AButton" type="Control" parent="DebugUI/Control/DebugDisplay/DebugButtons/CenterContainer2"]
+layout_mode = 2
+script = ExtResource("14_a46ty")
+
+[node name="inactive" type="TextureRect" parent="DebugUI/Control/DebugDisplay/DebugButtons/CenterContainer2/AButton"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("14_yqcpy")
+expand_mode = 1
+
+[node name="active" type="TextureRect" parent="DebugUI/Control/DebugDisplay/DebugButtons/CenterContainer2/AButton"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("19_07t0r")
+expand_mode = 1

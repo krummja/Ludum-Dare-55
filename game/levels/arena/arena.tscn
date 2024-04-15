@@ -1,0 +1,107 @@
+[gd_scene load_steps=16 format=3 uid="uid://cbpdx1ejgtbmb"]
+
+[ext_resource type="Script" path="res://game/levels/arena/arena.gd" id="1_rwib0"]
+[ext_resource type="Script" path="res://dev/fighters/input_buffer.gd" id="2_dtg7y"]
+[ext_resource type="Script" path="res://game/levels/arena/camera.gd" id="3_hdjb3"]
+[ext_resource type="Script" path="res://game/levels/arena/fighters.gd" id="4_jr0gn"]
+[ext_resource type="Texture2D" uid="uid://0hbm1p2uj0gk" path="res://game/environment/arena_4.png" id="4_o4x15"]
+[ext_resource type="Texture2D" uid="uid://fvgnwp16wpq6" path="res://game/environment/arena_3.png" id="5_ua2ve"]
+[ext_resource type="Texture2D" uid="uid://do652hxyi3tjx" path="res://game/environment/arena_2.png" id="6_likvf"]
+[ext_resource type="Texture2D" uid="uid://bu7hwcl60svam" path="res://game/environment/arena_1.png" id="7_l346a"]
+[ext_resource type="PackedScene" uid="uid://bib1curxgfkko" path="res://game/levels/arena/fight_ui.tscn" id="9_db6vj"]
+
+[sub_resource type="Gradient" id="Gradient_ncc7b"]
+offsets = PackedFloat32Array(0.331633, 0.607143)
+colors = PackedColorArray(0.117647, 0.117647, 0.117647, 1, 0.635294, 0.631373, 0.603922, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hk4ku"]
+gradient = SubResource("Gradient_ncc7b")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_rdbjc"]
+offsets = PackedFloat32Array(0.322581, 0.774194)
+colors = PackedColorArray(0.117647, 0.117647, 0.117647, 1, 0.635294, 0.631373, 0.603922, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pqh3a"]
+gradient = SubResource("Gradient_rdbjc")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b5kl3"]
+size = Vector2(4812, 304)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ahvsa"]
+size = Vector2(148, 1695)
+
+[node name="Arena" type="Node2D" node_paths=PackedStringArray("fighters")]
+script = ExtResource("1_rwib0")
+fighters = NodePath("Fighters")
+left_fighter = "res://dev/fighters/player_fighter.tscn"
+right_fighter = "res://dev/fighters/computer_fighter.tscn"
+
+[node name="Controller" type="Node" parent="."]
+script = ExtResource("2_dtg7y")
+
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("fighters")]
+position = Vector2(578, -345)
+zoom = Vector2(0.79, 0.79)
+script = ExtResource("3_hdjb3")
+fighters = NodePath("../Fighters")
+
+[node name="FightingArea" type="StaticBody2D" parent="."]
+position = Vector2(251, -337)
+scale = Vector2(0.545838, 0.545838)
+
+[node name="FloorSprite" type="Sprite2D" parent="FightingArea"]
+position = Vector2(577, 894)
+scale = Vector2(81.74, 13.79)
+texture = SubResource("GradientTexture2D_hk4ku")
+
+[node name="FloorSprite2" type="Sprite2D" parent="FightingArea"]
+position = Vector2(577, -1245.79)
+rotation = -3.14159
+scale = Vector2(81.74, 13.79)
+texture = SubResource("GradientTexture2D_pqh3a")
+
+[node name="Wall" type="Sprite2D" parent="FightingArea"]
+position = Vector2(586, -97.6001)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("4_o4x15")
+
+[node name="Stand" type="Sprite2D" parent="FightingArea"]
+position = Vector2(577, 223.4)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("5_ua2ve")
+
+[node name="Fence" type="Sprite2D" parent="FightingArea"]
+position = Vector2(586, 920)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("6_likvf")
+
+[node name="Seats" type="Sprite2D" parent="FightingArea"]
+position = Vector2(587, 979)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("7_l346a")
+
+[node name="FloorCollision" type="CollisionShape2D" parent="FightingArea"]
+position = Vector2(574, 767)
+shape = SubResource("RectangleShape2D_b5kl3")
+
+[node name="FloorCollision2" type="CollisionShape2D" parent="FightingArea"]
+position = Vector2(-1829, -89)
+shape = SubResource("RectangleShape2D_ahvsa")
+
+[node name="FloorCollision3" type="CollisionShape2D" parent="FightingArea"]
+position = Vector2(2998, -89)
+shape = SubResource("RectangleShape2D_ahvsa")
+
+[node name="SpawnLeft" type="Marker2D" parent="."]
+position = Vector2(100, 0)
+
+[node name="SpawnRight" type="Marker2D" parent="."]
+position = Vector2(1020, 0)
+
+[node name="Fighters" type="Node2D" parent="."]
+script = ExtResource("4_jr0gn")
+
+[node name="FightUI" parent="." node_paths=PackedStringArray("fighters") instance=ExtResource("9_db6vj")]
+fighters = NodePath("../Fighters")

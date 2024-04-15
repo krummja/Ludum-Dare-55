@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://fbenuq6mg8bq"]
+
+[ext_resource type="Script" path="res://game/core/Main.gd" id="1_se0xo"]
+[ext_resource type="PackedScene" uid="uid://cbpdx1ejgtbmb" path="res://game/levels/arena/arena.tscn" id="2_qi4im"]
+[ext_resource type="Shader" path="res://game/crt.gdshader" id="3_axy38"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4b2fh"]
+shader = ExtResource("3_axy38")
+shader_parameter/overlay = true
+shader_parameter/scanlines_opacity = 0.109
+shader_parameter/scanlines_width = 0.122
+shader_parameter/grille_opacity = 0.3
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/pixelate = false
+shader_parameter/roll = true
+shader_parameter/roll_speed = 2.065
+shader_parameter/roll_size = 22.433
+shader_parameter/roll_variation = 0.443
+shader_parameter/distort_intensity = 0.003
+shader_parameter/noise_opacity = 0.258
+shader_parameter/noise_speed = 5.135
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/aberration = 0.00300005
+shader_parameter/brightness = 1.4
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 0.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.075
+shader_parameter/vignette_opacity = 0.285
+
+[node name="Root" type="Node"]
+script = ExtResource("1_se0xo")
+crt_shader_enabled = false
+
+[node name="Arena" parent="." instance=ExtResource("2_qi4im")]
+position = Vector2(0, -6)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_4b2fh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

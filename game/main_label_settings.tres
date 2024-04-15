@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://ctq1wqd8cq10e"]
+
+[ext_resource type="FontFile" uid="uid://ddn8mrec1defq" path="res://assets/fonts/Bangers-Regular.ttf" id="1_yipo5"]
+
+[resource]
+font = ExtResource("1_yipo5")
+font_size = 48
